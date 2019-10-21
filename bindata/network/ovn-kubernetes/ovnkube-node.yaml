@@ -265,6 +265,9 @@ spec:
           name: var-lib-openvswitch
         - mountPath: /env
           name: env-overrides
+        - mountPath: /lib/modules
+          name: host-modules
+          readOnly: true
         resources:
           requests:
             cpu: 100m
