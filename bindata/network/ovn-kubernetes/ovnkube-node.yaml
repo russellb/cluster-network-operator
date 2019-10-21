@@ -207,7 +207,7 @@ spec:
             --metrics-bind-address "0.0.0.0:9101"
         env:
         - name: OVN_KUBE_LOG_LEVEL
-          value: "4"
+          value: "5"
         - name: OVN_HYBRID_OVERLAY_ENABLE
           value: "{{ .OVNHybridOverlayEnable }}"
         - name: OVN_HYBRID_OVERLAY_NET_CIDR
