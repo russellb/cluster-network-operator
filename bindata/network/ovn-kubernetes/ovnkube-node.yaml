@@ -82,6 +82,8 @@ spec:
           readOnly: true
         - mountPath: /run/openvswitch
           name: run-openvswitch
+        - mountPath: /run/ovn
+          name: run-ovn
         - mountPath: /etc/openvswitch
           name: etc-openvswitch
         - mountPath: /old/openvswitch
@@ -129,7 +131,7 @@ spec:
             set +o allexport
           fi
           exec ovn-controller unix:/var/run/openvswitch/db.sock -vfile:off \
-            --no-chdir --pidfile=/var/run/openvswitch/ovn-controller.pid \
+            --no-chdir --pidfile=/var/run/ovn/ovn-controller.pid \
             -vconsole:"${OVN_LOG_LEVEL}"
         securityContext:
           privileged: true
@@ -143,6 +145,8 @@ spec:
         volumeMounts:
         - mountPath: /run/openvswitch
           name: run-openvswitch
+        - mountPath: /run/ovn
+          name: run-ovn
         - mountPath: /etc/openvswitch
           name: etc-openvswitch
         - mountPath: /var/lib/openvswitch
@@ -259,6 +263,8 @@ spec:
           name: host-var-lib-cni-networks-ovn-kubernetes
         - mountPath: /run/openvswitch
           name: run-openvswitch
+        - mountPath: /run/ovn
+          name: run-ovn
         - mountPath: /etc/openvswitch
           name: etc-openvswitch
         - mountPath: /var/lib/openvswitch
@@ -305,6 +311,8 @@ spec:
       # commit 0ac2cd changed the location of the ovs database, mount and check if a database already exists
       - name: old-openvswitch-database
         path: /etc/origin/openvswitch
+      - name: run-ovn
+        emptyDir: {}
       # For CNI server
       - name: host-run-ovn-kubernetes
         hostPath:
