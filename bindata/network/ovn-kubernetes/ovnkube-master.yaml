@@ -122,6 +122,13 @@ spec:
           done
           THIS_NODE_IP="${OVN_NODE_IPS_ARRAY[${NODE_INDEX}]}"
 
+          if [[ "${NODE_INDEX}" != "0" ]]; then
+            # We want to ensure that the leader starts first.
+            # This is a hack that should be replaced by a real
+            # check for the leader to be up.
+            sleep 300
+          fi
+
           if [[ "$THIS_NODE_IP" == "$MASTER_NODE_IP" ]]; then
             exec /usr/share/openvswitch/scripts/ovn-ctl \
             --db-nb-cluster-local-port={{.OVN_NB_RAFT_PORT}} \
@@ -227,6 +234,13 @@ spec:
             fi
           done
           THIS_NODE_IP="${OVN_NODE_IPS_ARRAY[${NODE_INDEX}]}"
+
+          if [[ "${NODE_INDEX}" != "0" ]]; then
+            # We want to ensure that the leader starts first.
+            # This is a hack that should be replaced by a real
+            # check for the leader to be up.
+            sleep 300
+          fi
 
           if [[ "$THIS_NODE_IP" == "$MASTER_NODE_IP" ]]; then
             exec /usr/share/openvswitch/scripts/ovn-ctl \
